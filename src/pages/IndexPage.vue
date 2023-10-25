@@ -21,7 +21,7 @@
         </q-tab-panel>
 
         <q-tab-panel name="variant3">
-          <Variant2/>
+          <Variant3/>
         </q-tab-panel>
       </q-tab-panels>
       </div>
@@ -32,10 +32,11 @@
 import { ref } from 'vue';
 import Variant1 from 'components/VariantSelection1.vue';
 import Variant2 from 'components/VariantSelection2.vue';
+import Variant3 from 'components/VariantSelection3.vue';
 
 export default {
   name: 'IndexPage',
-  components: { Variant1, Variant2 },
+  components: { Variant1, Variant2, Variant3 },
   setup() {
     return {
       tab: ref('variant1'),
