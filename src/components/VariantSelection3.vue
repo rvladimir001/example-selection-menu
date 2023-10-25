@@ -66,7 +66,7 @@
 <!--                :rows-per-page-options="[0]"-->
 <!--              />-->
               <q-table
-                title="Treats"
+                title="Выбранные ТО"
                 :rows="selectedTO"
                 :columns="columns"
                 row-key="name"
