@@ -45,92 +45,46 @@
             label="ТО"
             v-model="model2"
             use-input
+            multiple
             @new-value="createValue"
             :disable="!filialModel"
             :options="TOoptions"
             @filter="filterTO"
             @update:model-value="addTO(model2)"
-            style="width: 500px; height: 50px;"
+            style="width: 300px; height: 50px;"
           />
 
-            <div class="q-pa-md" style="width: 80%">
-<!--              <q-table-->
-<!--                style="height: 400px"-->
-<!--                flat bordered-->
-<!--                title="Выбранные ТО"-->
-<!--                :rows="selectedTO"-->
-<!--                :columns="columns"-->
-<!--                row-key="index"-->
-<!--                virtual-scroll-->
-<!--                v-model:pagination="pagination"-->
-<!--                :rows-per-page-options="[0]"-->
-<!--              />-->
-              <q-table
-                title="Выбранные ТО"
-                :rows="selectedTO"
-                :columns="columns"
-                row-key="name"
-              />
-          </div>
-        </div>
+              <q-list
+                bordered
+                class="rounded-borders"
+                style="width: 300px; max-height: 150px; overflow: auto">
+                <q-item-label header>Выбранные ТО</q-item-label>
+                <q-item v-for="to in selectedTO" :key="to">
+                  <q-item-section top>
+                    <q-item-label lines="1">
+                      <span>{{to.name}}</span>
+                    </q-item-label>
+                  </q-item-section>
+                  <q-item-section top side>
+                    <div class="text-grey-8 q-gutter-xs">
+                      <q-btn
+                        class="gt-xs"
+                        size="12px"
+                        flat
+                        dense
+                        round
+                        icon="delete"
+                        @click="removeTO(to)"/>
+                    </div>
+                  </q-item-section>
+                </q-item>
+                </q-list>
+            </div>
 </template>
 
 <script>
 import { ref, reactive } from 'vue';
-
-const format = [
-  'ММ', 'МК', 'ГМ', 'МА',
-];
-const filial = [
-  'Краснодар', 'Краснодар Запад', 'Краснодар Восток', 'Ростов-на-Дону', 'Ростов-на-Дону Север', 'Волгоград',
-];
-
-const to = [
-  'Торговвый объект 1 - 01380',
-  'Торговвый объект 2 - 02380',
-  'Торговвый объект 3 - 03380',
-  'Торговвый объект 4 - 04380',
-  'Торговвый объект 5 - 05380',
-  'Торговвый объект 6 - 06380',
-  'Торговвый объект 7 - 07380',
-  'Торговвый объект 8 - 08380',
-  'Торговвый объект 9 - 09380',
-  'Торговвый объект 10 - 10380',
-  'Торговвый объект 11 - 11380',
-  'Торговвый объект 12 - 12380',
-  'Торговвый объект 13 - 13380',
-  'Торговвый объект 14 - 14380',
-  'Торговвый объект 15 - 15380',
-  'Торговвый объект 16 - 16380',
-  'Торговвый объект 17 - 17380',
-  'Торговвый объект 18 - 18380',
-  'Торговвый объект 19 - 19380',
-  'Торговвый объект 20 - 20380',
-];
-
-const columns = [
-  {
-    name: 'index',
-    label: '#',
-    field: 'index',
-  },
-  {
-    name: 'name',
-    required: true,
-    label: 'Наименование',
-    align: 'left',
-    field: (row) => row.name,
-    format: (val) => `${val}`,
-    sortable: true,
-  },
-  {
-    name: 'Code', align: 'center', label: 'Код', field: 'code', sortable: true,
-  },
-  {
-    name: 'Filial', label: 'Филиал', field: 'filial', sortable: true,
-  },
-  { name: 'Status', label: 'Состояние', field: 'status' },
-];
+import { format, to, filial } from 'src/mock';
 
 export default {
   name: 'VariantSelection1',
@@ -153,16 +107,23 @@ export default {
       TOoptions,
       multiple: ref(null),
       selectedTO,
-      columns,
       addTO(val) {
         selectedTO.push({
           index: selectedTO.length + 1,
-          name: val.split('-')[0],
-          code: val.split('-')[1],
+          name: val[0].split('-')[0],
+          code: val[0].split('-')[1],
           filial: filialModel,
           status: 'Функционирует',
         });
-        model2.value = '';
+        delete TOoptions.value[TOoptions.value.indexOf(val[0])];
+        model2.value = [];
+      },
+      removeTO(val) {
+        // delete selectedTO[selectedTO.indexOf(val)];
+        // selectedTO.find((tempTO) => tempTO.index === val.index);
+        console.log('result', selectedTO.indexOf(val));
+        delete selectedTO[selectedTO.indexOf(val)];
+        console.log('result', selectedTO);
       },
       pagination: ref({
         rowsPerPage: 0,

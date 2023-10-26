@@ -1,29 +1,47 @@
 <template>
   <q-page class="flex">
     <div class="q-pa-md">
-      <q-tabs
-        v-model="tab"
-        inline-label
-        class="bg-red text-white shadow-2"
-      >
-        <q-tab name="variant1" icon="" label="Вариант 1" />
-        <q-tab name="variant2" icon="" label="Вариант 2" />
-        <q-tab name="variant3" icon="" label="Вариант 3" />
-      </q-tabs>
+      <div class="q-gutter-md row">
+        <q-btn color="red" @click="variant1=true">Вариант 1</q-btn>
+        <q-btn color="red" @click="variant2=true">Вариант 2</q-btn>
+        <q-btn color="red" @click="variant3=true">Вариант 3</q-btn>
+      </div>
 
-      <q-tab-panels v-model="tab" animated>
-        <q-tab-panel name="variant1">
-          <Variant1/>
-        </q-tab-panel>
+      <q-dialog v-model="variant1">
+        <q-card style="width: 1000px; max-width: 80vw;">
+          <q-card-section class="column no-wrap flex-center">
+            <Variant1/>
+          </q-card-section>
+          <q-card-actions align="center">
+            <q-btn flat label="Отмена" color="primary" v-close-popup />
+            <q-btn flat label="Принять" color="primary" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
 
-        <q-tab-panel name="variant2">
-          <Variant2/>
-        </q-tab-panel>
+      <q-dialog v-model="variant2">
+        <q-card style="width: 1000px; max-width: 80vw;">
+          <q-card-section class="column no-wrap flex-center">
+            <Variant2/>
+          </q-card-section>
+          <q-card-actions align="center">
+            <q-btn flat label="Отмена" color="primary" v-close-popup />
+            <q-btn flat label="Принять" color="primary" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
 
-        <q-tab-panel name="variant3">
-          <Variant3/>
-        </q-tab-panel>
-      </q-tab-panels>
+      <q-dialog v-model="variant3">
+        <q-card style="width: 1200px; max-width: 80vw;">
+          <q-card-section style="height: 200px">
+            <Variant3/>
+          </q-card-section>
+          <q-card-actions align="center">
+            <q-btn flat label="Отмена" color="primary" v-close-popup />
+            <q-btn flat label="Принять" color="primary" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
       </div>
   </q-page>
 </template>
@@ -40,6 +58,9 @@ export default {
   setup() {
     return {
       tab: ref('variant1'),
+      variant1: ref(false),
+      variant2: ref(false),
+      variant3: ref(false),
     };
   },
 };
