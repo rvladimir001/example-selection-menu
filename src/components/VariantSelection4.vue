@@ -40,25 +40,26 @@
             </template>
           </q-select>
 
-    <q-select
+  <div bordered class="row borders">
+
+    <q-btn :disable="!filialModel" outline color="grey" :label=btnTO>
+    <q-menu>
+          <q-select
             filled
             label="ТО"
             v-model="model2"
             use-input
             multiple
             @new-value="createValue"
-            :disable="!filialModel"
             :options="TOoptions"
             @filter="filterTO"
             @update:model-value="addTO(model2)"
-            style="width: 300px; height: 30px;"
+            style="width: 400px; height: 30px; margin: 10px"
           />
-    <q-btn outline color="grey" :label=btnTO :disable="!filialModel">
-    <q-menu>
           <q-list
             bordered
             class="rounded-borders"
-            style="width: 300px; max-height: 150px; overflow: auto">
+            style="width: 400px; max-height: 200px; overflow: auto; margin-top: 50px">
             <q-item-label header>Выбранные ТО</q-item-label>
             <q-item v-for="to in selectedTO" :key="to">
               <q-item-section top>
@@ -82,6 +83,8 @@
           </q-list>
         </q-menu>
     </q-btn>
+  </div>
+
 </div>
 </template>
 
@@ -90,7 +93,7 @@ import { ref, reactive, computed } from 'vue';
 import { format, to, filial } from 'src/mock';
 
 export default {
-  name: 'VariantSelection3',
+  name: 'VariantSelection4',
   setup() {
     const formatOptions = ref(format);
     const TOoptions = ref(to);

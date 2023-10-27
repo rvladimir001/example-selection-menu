@@ -111,7 +111,6 @@ export default {
           });
           return;
         }
-
         if (val.length >= 3) {
           update(() => {
             const needle = val.toLowerCase();
