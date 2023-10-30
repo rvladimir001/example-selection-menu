@@ -6,6 +6,7 @@
         <q-btn color="red" @click="variant2=true">Вариант 2</q-btn>
         <q-btn color="red" @click="variant3=true">Вариант 3</q-btn>
         <q-btn color="red" @click="variant4=true">Вариант 4</q-btn>
+        <q-btn color="red" @click="variant5=true">Вариант 5</q-btn>
       </div>
 
       <q-dialog v-model="variant1">
@@ -55,6 +56,18 @@
           </q-card-actions>
         </q-card>
       </q-dialog>
+
+      <q-dialog v-model="variant5">
+        <q-card style="width: 800px; max-width: 80vw;">
+          <q-card-section>
+            <Variant5/>
+          </q-card-section>
+          <q-card-actions align="center">
+            <q-btn flat label="Отмена" color="primary" v-close-popup />
+            <q-btn flat label="Принять" color="primary" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
       </div>
   </q-page>
 </template>
@@ -65,6 +78,7 @@ import Variant1 from 'components/VariantSelection1.vue';
 import Variant2 from 'components/VariantSelection2.vue';
 import Variant3 from 'components/VariantSelection3.vue';
 import Variant4 from 'components/VariantSelection4.vue';
+import Variant5 from 'components/VariantSelection5.vue';
 
 export default {
   name: 'IndexPage',
@@ -73,14 +87,15 @@ export default {
     Variant2,
     Variant3,
     Variant4,
+    Variant5,
   },
   setup() {
     return {
-      tab: ref('variant1'),
       variant1: ref(false),
       variant2: ref(false),
       variant3: ref(false),
       variant4: ref(false),
+      variant5: ref(false),
     };
   },
 };
